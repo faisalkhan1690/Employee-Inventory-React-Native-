@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  StyleSheet
 } from 'react-native';
+import CommonStyle from '../../util/CommonStyles'
 
-import {Card,CardSection,Input,Button} from '../common';
+import {Card,CardSection,Input,Button,Spinner, Header} from '../common';
 
 export default class LoginComponent extends Component {
 
   render() {
-  
-    console.warn(this.props.authenticationData.userData)
+
     return (
-      <View>
+      <View style={CommonStyle.screenBackground}>
+        {this.props.authenticationData.isLoading? <Spinner size="large"/>:null}
+        <Header headerText="Login"/>
         <Card>
           <CardSection>
           <Input 
@@ -30,17 +33,31 @@ export default class LoginComponent extends Component {
               secureTextEntry={true}
               />
           </CardSection>
-          <Text>{this.props.authenticationData.errorMessage}</Text>
+          <Text style={styles.errorTextStyle}>
+            {this.props.authenticationData.errorMessage}
+          </Text>
           <CardSection>
-            <Button onPress={()=>{
-              this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password);
-              }}>
+
+            <Button 
+              onPress={
+                ()=>{this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password);}
+              }>
               Login 
             </Button>
+            
           </CardSection>
-          <Text>Data</Text>
         </Card>
+       
       </View>
     );
   }
 }
+
+const styles=StyleSheet.create({
+  errorTextStyle:{
+      fontSize:20,
+      alignSelf:'center',
+      color:'blue',
+      padding:10
+  }
+});
