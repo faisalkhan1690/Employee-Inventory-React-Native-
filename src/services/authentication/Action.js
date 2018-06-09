@@ -28,14 +28,16 @@ export const loginUser = (username,password) => (dispatch: any) => {
           console.warn(result);
           console.warn('Login Successfully')
           dispatch({
+            type: LOADER,
+            isLoading: false
+          })
+
+          dispatch({
             type: LOGIN_SUCCESS,
             userData: result,
             message:"Login Successfully"
           })      
-          dispatch({
-            type: LOADER,
-            isLoading: false
-          })
+         
   })
   .catch(()=>{
       firebase.auth()
@@ -43,13 +45,14 @@ export const loginUser = (username,password) => (dispatch: any) => {
       .then((result)=>{
           console.warn('SignUp Successfully')
           dispatch({
+            type: LOADER,
+            isLoading: false
+          })  
+          
+          dispatch({
             type: LOGIN_SUCCESS,
             userData: result,
             message: "SignUp Successfully"
-          })    
-          dispatch({
-            type: LOADER,
-            isLoading: false
           })     
       })
       .catch((error)=>{
