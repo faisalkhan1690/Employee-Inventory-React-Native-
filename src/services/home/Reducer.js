@@ -1,22 +1,29 @@
-import { USER_EMAIL_ID, USER_PASSWORD, LOGIN_SUCCESS,LOGIN_FAIL,LOADER } from './Constants';
+import { USER_NAME, USER_PHONE_NUMBER,USER_SHIFT } from './Constants';
 
 const initialState = {
-  emailId:"",
-  password:"",
+  name:'',
+  phoneNumber:'',
+  shift:''
 }
 
 export default function EmpDataReducer(state=initialState, action) {
     switch (action.type) {
-      case USER_EMAIL_ID:
+      case USER_NAME:
         return {
           ...state,
-          emailId: action.emailData
+          name: action.name
   
         }
-      case USER_PASSWORD:
+      case USER_PHONE_NUMBER:
         return {
           ...state,
-          password: action.passwordData
+          phoneNumber: action.phoneNumber
+  
+        }
+      case USER_SHIFT:
+        return {
+          ...state,
+          shift: action.shift
   
         }
       default:

@@ -36,8 +36,12 @@ export default class LoginComponent extends Component {
     }
   }
 
+
   componentDidMount(){
-    this.props.navigation.navigate('Home')
+    // this.props.authenticationData.emailId='faisal@gmail.com'
+    // this.props.authenticationData.password='faisal'
+    // this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password)
+    // this.props.navigation.navigate('Home')
   }
 
   render() {

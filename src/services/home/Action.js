@@ -1,15 +1,22 @@
-import { USER_EMAIL_ID, USER_PASSWORD } from './Constants';
+import { USER_NAME, USER_PHONE_NUMBER,USER_SHIFT } from './Constants';
 
-export const emailState = (emailID) => {
+export const nameState = (name) => {
     return{
-      type: USER_EMAIL_ID,
-      emailData: emailID
+      type: USER_NAME,
+      name: name
   };
 };
 
-export const passwordState = (password) => {
+export const phoneNumberState = (phoneNumber) => {
   return{
-    type: USER_PASSWORD,
-    passwordData: password
+    type: USER_PHONE_NUMBER,
+    phoneNumber: phoneNumber
+  };
+};
+
+export const shiftState = (shift) => {
+  return{
+    type: USER_SHIFT,
+    shift: shift
   };
 };

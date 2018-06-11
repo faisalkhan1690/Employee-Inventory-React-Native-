@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import {View} from 'react-native';
 import {StackNavigator} from 'react-navigation';
 import AuthenticationContainer from './src/containers/authentication/AuthenticationContainer';
-import EmployeeListCompoment from './src/components/home/EmployeeListCompoment';
-import AddEmployeeComponent  from './src/components/home/AddEmployeeComponent';
+import EmployeeListContainer from './src/containers/home/EmployeeListContainer';
+import AddEmployeeContainer from './src/containers/home/AddEmployeeContainer';
 
 
 export default class App extends Component {
@@ -35,10 +35,10 @@ const RootStack = StackNavigator({
     screen: AuthenticationContainer
   },
   Home: {
-    screen: EmployeeListCompoment
+    screen: EmployeeListContainer
   },
   AddEmployee:{
-    screen:AddEmployeeComponent
+    screen:AddEmployeeContainer
   }
 }); 
 

@@ -1,2 +1,3 @@
-export const USER_EMAIL_ID="USER_EMAIL_ID";
-export const USER_PASSWORD="USER_PASSWORD";
+export const USER_NAME="USER_NAME";
+export const USER_PHONE_NUMBER="USER_PHONE_NUMBER";
+export const USER_SHIFT="USER_SHIFT";
