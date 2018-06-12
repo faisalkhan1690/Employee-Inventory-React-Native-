@@ -1,10 +1,11 @@
-import { USER_EMAIL_ID, USER_PASSWORD, LOGIN_SUCCESS,LOGIN_FAIL,LOADER } from './Constants';
+import { USER_EMAIL_ID, USER_PASSWORD, LOGIN_SUCCESS,LOGIN_FAIL,LOADER,EMP_LIST } from '../Constants';
 
 const initialState = {
-  emailId:"",
-  password:"",
-  userData:"",
-  errorMessage:""
+  emailId:'',
+  password:'',
+  userData:'',
+  errorMessage:'',
+  isLoading:''
 }
 
 export default function AuthenticatioReducer(state=initialState, action) {
@@ -39,6 +40,12 @@ export default function AuthenticatioReducer(state=initialState, action) {
         return {
           ...state,
           isLoading: action.isLoading,
+        }
+
+        case EMP_LIST:
+        return {
+          ...state,
+          empList: action.empList,
         }
       default:
         return state

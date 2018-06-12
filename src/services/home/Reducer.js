@@ -1,9 +1,13 @@
-import { USER_NAME, USER_PHONE_NUMBER,USER_SHIFT } from './Constants';
+import { USER_NAME, USER_PHONE_NUMBER, USER_SHIFT, USER_CREATE_USER, LOADER_ADD, LOADER_LIST,F } from '../Constants';
 
 const initialState = {
   name:'',
   phoneNumber:'',
-  shift:''
+  shift:'',
+  message: '',
+  isSaveSuccess:'',
+  isLoading:false,
+  empList:[]
 }
 
 export default function EmpDataReducer(state=initialState, action) {
@@ -26,6 +30,30 @@ export default function EmpDataReducer(state=initialState, action) {
           shift: action.shift
   
         }
+      case USER_CREATE_USER:
+        return {
+          ...state,
+          message: action.message,
+          isSaveSuccess:action.isSaveSuccess
+  
+        }
+      case LOADER_ADD:
+        return {
+          ...state,
+          isLoading: action.isLoading
+        }
+      case LOADER_LIST:
+        return {
+          ...state,
+          isLoading: action.isLoading
+        }
+
+        case LOADER_LIST:
+        return {
+          ...state,
+          empList: action.empList
+        }
+        
       default:
         return state
     }

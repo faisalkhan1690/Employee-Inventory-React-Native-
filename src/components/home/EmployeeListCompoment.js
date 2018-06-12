@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Text ,StyleSheet} from 'react-native';
+import {View, Text ,StyleSheet,FlatList} from 'react-native';
+import {Card, CardSection} from '../common'
 
 class EmployeeListCompoment extends Component {
 
@@ -29,11 +30,21 @@ class EmployeeListCompoment extends Component {
         )
     });
 
+
+    static getDerivedStateFromProps(props, state){
+         this.props.fetchEmpList();
+      }
+
     render() {
         return (
-            <View>
-                <Text>Hello</Text>
-            </View>
+            <Card>
+                <CardSection>
+                    <FlatList
+                        data={this.props.empList}
+                        renderItem={({item}) => <Text>{item.name}</Text>}
+                        />
+                </CardSection>
+            </Card>
         );
     }
 

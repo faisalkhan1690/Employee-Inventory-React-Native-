@@ -1,4 +1,4 @@
-import { USER_EMAIL_ID, USER_PASSWORD, LOGIN_SUCCESS,LOGIN_FAIL,LOADER } from './Constants';
+import { USER_EMAIL_ID, USER_PASSWORD, LOGIN_SUCCESS,LOGIN_FAIL,LOADER } from '../Constants';
 
 export const emailState = (emailID) => {
     return{
@@ -22,7 +22,6 @@ export const loginUser = (username,password) => (dispatch: any) => {
   })  
 
   const firebase = require("firebase");
-  console.warn(firebase.auth())
   firebase.auth()
   .signInWithEmailAndPassword(username,password)
   .then((result)=>{

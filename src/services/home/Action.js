@@ -1,4 +1,12 @@
-import { USER_NAME, USER_PHONE_NUMBER,USER_SHIFT,USER_CREATE_USER,LOADER } from './Constants';
+import { 
+  USER_NAME,
+  USER_PHONE_NUMBER, 
+  USER_SHIFT, 
+  USER_CREATE_USER, 
+  LOADER_ADD,
+  EMP_LIST,
+  LOADER_LIST
+} from '../Constants';
 
 export const nameState = (name) => {
     return{
@@ -21,36 +29,84 @@ export const shiftState = (shift) => {
   };
 };
 
-export const createUser = (name,phoneNumber,shift) => {
+
+export const createUser = (name,phoneNumber,shift) => (dispatch: any) => {
 
   
   dispatch({
-    type: LOADER,
+    type: LOADER_ADD,
     isLoading: true
   })  
   const firebase = require("firebase");
-  const {providerData} =firebase.auth();
+  const {currentUser} =firebase.auth();
   
-  firebase.auth()
-  .push('users/')
+  
+  firebase.database().ref(`/users/${currentUser.uid}/employees`)
+  .push({name,phoneNumber,shift})
   .then((result)=>{
-          console.warn(result);
-          console.warn('Login Successfully')
-          dispatch({
-            type: LOADER,
-            isLoading: false
-          })
+      console.warn(result);
+      console.warn('Record saved successfully')
 
-          dispatch({
-            type: LOGIN_SUCCESS,
-            userData: result,
-            message:"Login Successfully"
-          })      
-         
+      dispatch({
+        type: LOADER_ADD,
+        isLoading: false
+      })
+      dispatch({
+        type: USER_CREATE_USER,
+        isSaveSuccess:true,
+        message:"Record saved successfully"
+      })       
   })
+  .catch((error)=>{
+    console.warn(error);
+    console.warn('Record was not saved successfully')
+    dispatch({
+      type: LOADER_ADD,
+      isLoading: false
+    })
+    dispatch({
+      type: USER_CREATE_USER,
+      isSaveSuccess:false,
+      message:"Record was not saved successfully"
+    })   
+  })
+};
 
-  return{
-    type: USER_CREATE_USER,
-    shift: shift
-  };
+
+export const fetchEmpList = () => (dispatch: any) => {
+  dispatch({
+    type: LOADER_LIST,
+    isLoading: true
+  })  
+  const firebase = require("firebase");
+  const {currentUser} =firebase.auth();
+  
+  
+  firebase.database().ref(`/users/${currentUser.uid}/employees`)
+  .on('value',snapshot=>{
+      console.warn("snapshot",snapshot);
+      console.warn('List fetch succssfully')
+
+      dispatch({
+        type: LOADER_LIST,
+        isLoading: false
+      })
+      dispatch({
+        type: EMP_LIST,
+        empList:snapshot
+      })  
+  })
+  .catch((error)=>{
+    console.warn(error);
+    console.warn('Record was not saved successfully')
+    dispatch({
+      type: LOADER_LIST,
+      isLoading: false
+    })
+    dispatch({
+      type: EMP_LIST,
+      empList:[]
+    })   
+  
+  })
 };

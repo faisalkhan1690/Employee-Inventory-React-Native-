@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View,Text} from 'react-native'
-import {Card,CardSection,Input,Button,TextPicker} from '../common'
+import {Card,CardSection,Input,Button,TextPicker,Spinner} from '../common'
 import CommonStyle from '../../util/CommonStyles'
+import Snackbar from 'react-native-snackbar';
 
 class AddEmployeeComponent extends Component{
     
@@ -25,10 +26,32 @@ class AddEmployeeComponent extends Component{
         headerRight: (<View/>)
     });
 
+
+    static getDerivedStateFromProps(props, state){
+
+        console.warn("props",props)
+        if(props.empData.message!==''){
+            if(props.empData.isSaveSuccess){
+                Snackbar.show({
+                    title: 'Done '+props.empData.message,
+                    duration: Snackbar.LENGTH_SHORT,
+                });
+                props.navigation.goBack();
+                
+            }else if(!props.empData.isSaveSuccess) {
+                Snackbar.show({
+                    title: 'Fail '+props.empData.message,
+                    duration: Snackbar.LENGTH_SHORT,
+                });
+            }
+        }
+        
+      }
+
     render(){
-        console.warn("new Props",this.props)
         return(
         <View style={CommonStyle.screenBackground}>
+        {this.props.empData.isLoading? <Spinner size="large"/>:null}
             <Card>
                 <CardSection>
                     <Input 
@@ -56,7 +79,12 @@ class AddEmployeeComponent extends Component{
                 <CardSection>
                 <Button 
                     onPress={
-                        ()=>{alert("Under Developemnt")}
+                        ()=>{
+                            this.props.createUser(
+                                this.props.empData.name,
+                                this.props.empData.phoneNumber,
+                                this.props.empData.shift
+                            )}
                     }>
                     Create
                     </Button>

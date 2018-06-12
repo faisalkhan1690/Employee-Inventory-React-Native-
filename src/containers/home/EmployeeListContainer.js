@@ -1,14 +1,14 @@
 import { connect } from 'react-redux';
 import EmployeeListCompoment from '../../components/home/EmployeeListCompoment';
-import {emailState,empIdState} from '../../services/home/Reducer'
+import {fetchEmpList} from '../../services/home/Reducer'
 
 
 const mapStateToProps = (state) => ({
-    empsDataData : state.empDataReducer
+    empList : state.empDataReducer.empList
   });
   
 const mapDispatchToProps = (dispatch) => ({ 
-    emailState: (emailID) => dispatch(emailState(emailID)),
+    fetchEmpList: () => dispatch(fetchEmpList()),
 });
 
 const EmployeeListContainer = connect(

@@ -30,10 +30,15 @@ export default class LoginComponent extends Component {
 
   
   static getDerivedStateFromProps(props, state){
-    
     if(props.authenticationData.userData!==''){
       props.navigation.navigate('Home')
     }
+  }
+
+  componentDidMount(){
+    this.props.authenticationData.emailId='faisal@gmail.com'
+    this.props.authenticationData.password='faisal'
+    this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password)
   }
 
   render() {
