@@ -26,7 +26,7 @@ class AddEmployeeComponent extends Component{
     });
 
     render(){
-        console.warn(this.props)
+        console.warn("new Props",this.props)
         return(
         <View style={CommonStyle.screenBackground}>
             <Card>

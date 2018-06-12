@@ -1,3 +1,5 @@
 export const USER_NAME="USER_NAME";
 export const USER_PHONE_NUMBER="USER_PHONE_NUMBER";
 export const USER_SHIFT="USER_SHIFT";
+export const USER_CREATE_USER="USER_CREATE_USER";
+export const LOADER="LOADER";

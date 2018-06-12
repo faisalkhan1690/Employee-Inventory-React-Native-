@@ -22,6 +22,7 @@ export const loginUser = (username,password) => (dispatch: any) => {
   })  
 
   const firebase = require("firebase");
+  console.warn(firebase.auth())
   firebase.auth()
   .signInWithEmailAndPassword(username,password)
   .then((result)=>{
