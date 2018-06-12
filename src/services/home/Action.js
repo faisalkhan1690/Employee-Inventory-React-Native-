@@ -95,8 +95,7 @@ export const fetchEmpList = () => (dispatch: any) => {
         type: EMP_LIST,
         empList:snapshot
       })  
-  })
-  .catch((error)=>{
+  },(error)=>{
     console.warn(error);
     console.warn('Record was not saved successfully')
     dispatch({

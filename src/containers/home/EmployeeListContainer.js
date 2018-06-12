@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import EmployeeListCompoment from '../../components/home/EmployeeListCompoment';
-import {fetchEmpList} from '../../services/home/Reducer'
+import {fetchEmpList} from '../../services/home/Action'
 
 
 const mapStateToProps = (state) => ({
