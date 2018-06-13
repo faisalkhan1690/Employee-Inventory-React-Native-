@@ -26,11 +26,12 @@ class AddEmployeeComponent extends Component{
         headerRight: (<View/>)
     });
 
+    state={};
 
     static getDerivedStateFromProps(props, state){
 
-        console.warn("props",props)
-        if(props.empData.message!==''){
+        console.warn("props====",props)
+        if(state!=null && state.empData.message===''){
             if(props.empData.isSaveSuccess){
                 Snackbar.show({
                     title: 'Done '+props.empData.message,
@@ -46,7 +47,8 @@ class AddEmployeeComponent extends Component{
             }
         }
         
-      }
+    }
+
 
     render(){
         return(
