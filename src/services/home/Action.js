@@ -84,8 +84,11 @@ export const fetchEmpList = () => (dispatch: any) => {
   
   firebase.database().ref(`/users/${currentUser.uid}/employees`)
   .on('value',snapshot=>{
+      empList=[];
       console.warn("snapshot",snapshot);
-      console.warn('List fetch succssfully')
+      snapshot.forEach(childSnapshot=>{
+        empList.push(childSnapshot.val())
+      })
 
       dispatch({
         type: LOADER_LIST,
@@ -93,7 +96,7 @@ export const fetchEmpList = () => (dispatch: any) => {
       })
       dispatch({
         type: EMP_LIST,
-        empList:snapshot
+        empList:empList
       })  
   },(error)=>{
     console.warn(error);

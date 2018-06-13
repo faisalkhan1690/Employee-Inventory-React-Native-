@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {View, Text ,StyleSheet,FlatList} from 'react-native';
-import {Card, CardSection} from '../common'
+import {Card, CardSection,Spinner} from '../common'
+import CommonStyle from '../../util/CommonStyles'
 
 class EmployeeListCompoment extends Component {
 
@@ -32,23 +33,45 @@ class EmployeeListCompoment extends Component {
 
 
     static getDerivedStateFromProps(props, state){
-         console.warn("props",props)
+         console.warn("listprops",props)
       }
 
-      componentDidMount(){
+    componentDidMount(){
         this.props.fetchEmpList();
-      }
+    }
+
+    renderListItem(item){
+        return(
+            <View style={styles.listItemStyle}>
+                <View style={styles.listSectionStyle}>
+                    <Text style={styles.headingText}>Employee Name :</Text>
+                    <Text style={styles.infoText}>{item.name}</Text>
+                </View>
+                <View style={styles.listSectionStyle}>
+                    <Text style={styles.headingText}>Employee No :</Text>
+                    <Text style={styles.infoText}>{item.phoneNumber}</Text>
+                </View>
+                <View style={styles.listSectionStyle}>
+                    <Text style={styles.headingText}>Shift :</Text>
+                    <Text style={styles.infoBlueText}>{item.shift}</Text>
+                </View>
+            </View>
+            )
+    }
 
     render() {
         return (
-            <Card>
-                <CardSection>
-                    <FlatList
-                        data={this.props.empList}
-                        renderItem={({item}) => <Text>{item.name}</Text>}
-                        />
-                </CardSection>
-            </Card>
+            <View style={CommonStyle.screenBackground}>
+                {this.props.empListData.isLoading? <Spinner size="large"/>:null}
+                <Card>
+                    <CardSection>
+                        <FlatList
+                            data={this.props.empListData.empList}
+                            renderItem={({item}) => this.renderListItem(item)}
+                            />
+                    </CardSection>
+                </Card>
+            </View>
         );
     }
 
@@ -62,7 +85,40 @@ const styles=StyleSheet.create({
         color: 'white',
         fontWeight:'bold',
         paddingRight:10
+    },
+    headingText:{
+        fontSize:16,
+        color:'black',
+        fontWeight:'600',
+        paddingLeft:10,
+        paddingRight:10
+
+    },infoText:{
+        fontSize:16 ,
+        color:'black',
+        paddingRight:10
+
+    },infoBlueText:{
+        fontSize:16 ,
+        color:'#5D7ED3',
+        paddingRight:10
+
+    },
+    listItemStyle:{
+        borderBottomWidth:1,
+        padding:5,
+        backgroundColor:'#fff',
+        justifyContent:'flex-start',
+        flexDirection:'column',
+        borderColor:'#ddd'
+
+    },
+    listSectionStyle:{
+        justifyContent:'flex-start',
+        flexDirection:'row'
     }
+
+
 });
 
 export default EmployeeListCompoment;

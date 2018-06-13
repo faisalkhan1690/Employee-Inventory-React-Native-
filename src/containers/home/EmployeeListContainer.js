@@ -4,7 +4,7 @@ import {fetchEmpList} from '../../services/home/Action'
 
 
 const mapStateToProps = (state) => ({
-    empList : state.empDataReducer.empList
+    empListData : state.empDataReducer
   });
   
 const mapDispatchToProps = (dispatch) => ({ 
