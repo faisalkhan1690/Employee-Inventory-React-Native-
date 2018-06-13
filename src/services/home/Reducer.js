@@ -15,6 +15,7 @@ const initialState = {
   message: '',
   isSaveSuccess:'',
   isLoading:false,
+  isSavedClicked:false,
   empList:[]
 }
 
@@ -42,6 +43,7 @@ export default function EmpDataReducer(state=initialState, action) {
         return {
           ...state,
           message: action.message,
+          isSavedClicked:true,
           isSaveSuccess:action.isSaveSuccess
   
         }

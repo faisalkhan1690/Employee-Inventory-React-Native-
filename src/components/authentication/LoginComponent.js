@@ -10,6 +10,10 @@ import {Card,CardSection,Input,Button,Spinner} from '../common';
 
 export default class LoginComponent extends Component {
   
+  constructor(){
+    super();
+    this.state={};
+  }
 
   static navigationOptions = ({ navigation }) => ({
     title: 'Login',
@@ -32,6 +36,9 @@ export default class LoginComponent extends Component {
   static getDerivedStateFromProps(props, state){
     if(props.authenticationData.userData!==''){
       props.navigation.navigate('Home')
+    }
+    return{
+      props
     }
   }
 

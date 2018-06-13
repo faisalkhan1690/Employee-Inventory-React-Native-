@@ -44,9 +44,6 @@ export const createUser = (name,phoneNumber,shift) => (dispatch: any) => {
   firebase.database().ref(`/users/${currentUser.uid}/employees`)
   .push({name,phoneNumber,shift})
   .then((result)=>{
-      console.warn(result);
-      console.warn('Record saved successfully')
-
       dispatch({
         type: LOADER_ADD,
         isLoading: false
@@ -85,7 +82,6 @@ export const fetchEmpList = () => (dispatch: any) => {
   firebase.database().ref(`/users/${currentUser.uid}/employees`)
   .on('value',snapshot=>{
       empList=[];
-      console.warn("snapshot",snapshot);
       snapshot.forEach(childSnapshot=>{
         empList.push(childSnapshot.val())
       })

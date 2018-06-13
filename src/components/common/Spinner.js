@@ -13,7 +13,7 @@ const styles={
     indicatorStyle:{
         flex:1,
         justifyContent:'center',
-        alignItem:'center',
+        alignItems:'center',
         position:'absolute',
         zIndex:4,
         elevation : 3,

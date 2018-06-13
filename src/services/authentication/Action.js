@@ -25,8 +25,6 @@ export const loginUser = (username,password) => (dispatch: any) => {
   firebase.auth()
   .signInWithEmailAndPassword(username,password)
   .then((result)=>{
-          console.warn(result);
-          console.warn('Login Successfully')
           dispatch({
             type: LOADER,
             isLoading: false

@@ -31,11 +31,6 @@ class EmployeeListCompoment extends Component {
         )
     });
 
-
-    static getDerivedStateFromProps(props, state){
-         console.warn("listprops",props)
-      }
-
     componentDidMount(){
         this.props.fetchEmpList();
     }

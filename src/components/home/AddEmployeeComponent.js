@@ -8,6 +8,11 @@ class AddEmployeeComponent extends Component{
     
     options =['Monday','Tuesday','Wednessday','Thrusday','Friday'];
 
+    constructor(){
+        super();
+        this.state={};
+    }
+
     static navigationOptions = ({ navigation }) => ({
         title: 'Add Employee',
         headerTitleStyle: {
@@ -26,12 +31,17 @@ class AddEmployeeComponent extends Component{
         headerRight: (<View/>)
     });
 
-    state={};
-
     static getDerivedStateFromProps(props, state){
+        if(state===null){
+            props.empData.name='';
+            props.empData.phoneNumber='';
+            props.empData.shift='';
+            props.empData.isSavedClicked=false;
+            props.empData.isSaveSuccess='';
+            props.empData.message='';
+        }
 
-        console.warn("props====",props)
-        if(state!=null && state.empData.message===''){
+        if(state!=null && props.empData.isSavedClicked){
             if(props.empData.isSaveSuccess){
                 Snackbar.show({
                     title: 'Done '+props.empData.message,
@@ -45,6 +55,9 @@ class AddEmployeeComponent extends Component{
                     duration: Snackbar.LENGTH_SHORT,
                 });
             }
+        }
+        return{
+            props
         }
         
     }
