@@ -5,7 +5,9 @@ import {
   USER_CREATE_USER, 
   LOADER_ADD,
   EMP_LIST,
-  LOADER_LIST
+  LOADER_LIST,
+  USER_UPDATE_USER,
+  USER_DELETE_USER
 } from '../Constants';
 
 export const nameState = (name) => {
@@ -50,8 +52,7 @@ export const createUser = (name,phoneNumber,shift) => (dispatch: any) => {
       })
       dispatch({
         type: USER_CREATE_USER,
-        isSaveSuccess:true,
-        message:"Record saved successfully"
+        isSaveSuccess:true
       })       
   })
   .catch((error)=>{
@@ -63,8 +64,7 @@ export const createUser = (name,phoneNumber,shift) => (dispatch: any) => {
     })
     dispatch({
       type: USER_CREATE_USER,
-      isSaveSuccess:false,
-      message:"Record was not saved successfully"
+      isSaveSuccess:false
     })   
   })
 };
@@ -83,7 +83,15 @@ export const fetchEmpList = () => (dispatch: any) => {
   .on('value',snapshot=>{
       empList=[];
       snapshot.forEach(childSnapshot=>{
-        empList.push(childSnapshot.val())
+    
+        var emp={};
+        console.warn("name",childSnapshot.val().name)
+        emp.name=childSnapshot.val().name;
+        emp.phoneNumber=childSnapshot.val().phoneNumber;
+        emp.shift=childSnapshot.val().shift;
+        emp.uid=childSnapshot.key;
+        empList.push(emp)
+          
       })
 
       dispatch({
@@ -106,5 +114,81 @@ export const fetchEmpList = () => (dispatch: any) => {
       empList:[]
     })   
   
+  })
+};
+
+
+export const updateUser = (name,phoneNumber,shift,empId) => (dispatch: any) => {
+
+  
+  dispatch({
+    type: LOADER_ADD,
+    isLoading: true
+  })  
+  const firebase = require("firebase");
+  const {currentUser} =firebase.auth();
+  
+  
+  firebase.database().ref(`/users/${currentUser.uid}/employees/${empId}`)
+  .set({name,phoneNumber,shift})
+  .then((result)=>{
+      dispatch({
+        type: LOADER_ADD,
+        isLoading: false
+      })
+      dispatch({
+        type: USER_UPDATE_USER,
+        isUpdateSuccess:true,
+      })       
+  })
+  .catch((error)=>{
+    console.warn(error);
+    console.warn('Record was not updated successfully')
+    dispatch({
+      type: LOADER_ADD,
+      isLoading: false
+    })
+    dispatch({
+      type: USER_UPDATE_USER,
+      isUpdateSuccess:false
+    })   
+  })
+};
+
+
+export const deleteUser = (empId) => (dispatch: any) => {
+
+  
+  dispatch({
+    type: LOADER_ADD,
+    isLoading: true
+  })  
+  const firebase = require("firebase");
+  const {currentUser} =firebase.auth();
+  
+  
+  firebase.database().ref(`/users/${currentUser.uid}/employees/${empId}`)
+  .remove()
+  .then((result)=>{
+      dispatch({
+        type: LOADER_ADD,
+        isLoading: false
+      })
+      dispatch({
+        type: USER_DELETE_USER,
+        isDeleteSuccess:true
+      })       
+  })
+  .catch((error)=>{
+    console.warn(error);
+    console.warn('Record was not deleted successfully')
+    dispatch({
+      type: LOADER_ADD,
+      isLoading: false
+    })
+    dispatch({
+      type: USER_DELETE_USER,
+      isDeleteSuccess:false
+    })   
   })
 };

@@ -43,6 +43,7 @@ export default class LoginComponent extends Component {
   }
 
   componentDidMount(){
+    console.disableYellowBox = true;
     this.props.authenticationData.emailId='faisal@gmail.com'
     this.props.authenticationData.password='faisal'
     this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password)

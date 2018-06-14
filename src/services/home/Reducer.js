@@ -5,7 +5,9 @@ import {
   USER_CREATE_USER, 
   LOADER_ADD,
   EMP_LIST,
-  LOADER_LIST
+  LOADER_LIST,
+  USER_UPDATE_USER,
+  USER_DELETE_USER
 } from '../Constants';
 
 const initialState = {
@@ -42,7 +44,6 @@ export default function EmpDataReducer(state=initialState, action) {
       case USER_CREATE_USER:
         return {
           ...state,
-          message: action.message,
           isSavedClicked:true,
           isSaveSuccess:action.isSaveSuccess
   
@@ -58,10 +59,26 @@ export default function EmpDataReducer(state=initialState, action) {
           isLoading: action.isLoading
         }
 
-        case EMP_LIST:
+      case EMP_LIST:
         return {
           ...state,
           empList: action.empList
+        }
+
+      case USER_UPDATE_USER:
+        return {
+          ...state,
+          isUpdateClicked:true,
+          isUpdateSuccess:action.isUpdateSuccess
+  
+        }
+
+      case USER_DELETE_USER:
+        return {
+          ...state,
+          isDeleteClicked:true,
+          isDeleteSuccess:action.isDeleteSuccess
+  
         }
         
       default:

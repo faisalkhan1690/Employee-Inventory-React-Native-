@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import AddEmployeeComponent from '../../components/home/AddEmployeeComponent';
-import {nameState,phoneNumberState,shiftState,createUser,setInitalState} from '../../services/home/Action'
+import {nameState,phoneNumberState,shiftState,createUser,updateUser,deleteUser} from '../../services/home/Action'
 
 
 const mapStateToProps = (state) => ({
@@ -12,7 +12,8 @@ const mapDispatchToProps = (dispatch) => ({
     phoneNumberState: (phoneNumber) => dispatch(phoneNumberState(phoneNumber)),
     shiftState: (shift) => dispatch(shiftState(shift)),
     createUser: (name,phoneNumber,shift) => dispatch(createUser(name,phoneNumber,shift)),
-    setInitalState: () => dispatch(setInitalState())
+    updateUser: (name,phoneNumber,shift,empId) => dispatch(updateUser(name,phoneNumber,shift,empId)),
+    deleteUser: (empId) => dispatch(deleteUser(empId))
 });
 
 const AddEmployeeContainer = connect(

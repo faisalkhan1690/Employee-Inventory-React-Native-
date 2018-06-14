@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {View, Text ,StyleSheet,FlatList} from 'react-native';
+import {View, Text ,StyleSheet,FlatList,TouchableWithoutFeedback} from 'react-native';
 import {Card, CardSection,Spinner} from '../common'
 import CommonStyle from '../../util/CommonStyles'
 
@@ -37,20 +37,33 @@ class EmployeeListCompoment extends Component {
 
     renderListItem(item){
         return(
-            <View style={styles.listItemStyle}>
-                <View style={styles.listSectionStyle}>
-                    <Text style={styles.headingText}>Employee Name :</Text>
-                    <Text style={styles.infoText}>{item.name}</Text>
+            <TouchableWithoutFeedback
+             onPress={()=>{
+                        this.props.navigation.navigate('AddEmployee',{
+                            'name':item.name,
+                            'phoneNumber':item.phoneNumber,
+                            'shift':item.shift,
+                            'action':'update',
+                            'uid':item.uid
+                        })
+                    }}>
+                <View style={styles.listItemStyle}>
+            
+                    <View style={styles.listSectionStyle}>
+                        <Text style={styles.headingText}>Employee Name :</Text>
+                        <Text style={styles.infoText}>{item.name}</Text>
+                    </View>
+                    <View style={styles.listSectionStyle}>
+                        <Text style={styles.headingText}>Employee No :</Text>
+                        <Text style={styles.infoText}>{item.phoneNumber}</Text>
+                    </View>
+                    <View style={styles.listSectionStyle}>
+                        <Text style={styles.headingText}>Shift :</Text>
+                        <Text style={styles.infoBlueText}>{item.shift}</Text>
+                    </View>
+                
                 </View>
-                <View style={styles.listSectionStyle}>
-                    <Text style={styles.headingText}>Employee No :</Text>
-                    <Text style={styles.infoText}>{item.phoneNumber}</Text>
-                </View>
-                <View style={styles.listSectionStyle}>
-                    <Text style={styles.headingText}>Shift :</Text>
-                    <Text style={styles.infoBlueText}>{item.shift}</Text>
-                </View>
-            </View>
+            </TouchableWithoutFeedback>
             )
     }
 

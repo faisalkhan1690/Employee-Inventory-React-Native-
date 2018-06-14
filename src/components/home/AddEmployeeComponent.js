@@ -7,11 +7,13 @@ import Snackbar from 'react-native-snackbar';
 class AddEmployeeComponent extends Component{
     
     options =['Monday','Tuesday','Wednessday','Thrusday','Friday'];
+    uid='';
 
     constructor(){
         super();
         this.state={};
     }
+    
 
     static navigationOptions = ({ navigation }) => ({
         title: 'Add Employee',
@@ -38,32 +40,74 @@ class AddEmployeeComponent extends Component{
             props.empData.shift='';
             props.empData.isSavedClicked=false;
             props.empData.isSaveSuccess='';
-            props.empData.message='';
+        }
+        if(state!=null){
+            return props
         }
 
-        if(state!=null && props.empData.isSavedClicked){
+        if(props.empData.isSavedClicked){
             if(props.empData.isSaveSuccess){
                 Snackbar.show({
-                    title: 'Done '+props.empData.message,
+                    title: 'User has been created',
                     duration: Snackbar.LENGTH_SHORT,
                 });
                 props.navigation.goBack();
                 
-            }else if(!props.empData.isSaveSuccess) {
+            }else{
                 Snackbar.show({
-                    title: 'Fail '+props.empData.message,
+                    title: 'User has not created',
+                    duration: Snackbar.LENGTH_SHORT,
+                });
+            }
+        }else if(props.empData.isUpdateClicked){
+            if(props.empData.isUpdateSuccess){
+                Snackbar.show({
+                    title: 'User has been Updated',
+                    duration: Snackbar.LENGTH_SHORT,
+                });
+                props.navigation.goBack();
+                
+            }else {
+                Snackbar.show({
+                    title: 'User has not Updated',
+                    duration: Snackbar.LENGTH_SHORT,
+                });
+            }
+        }else if(props.empData.isDeleteClicked){
+            if(props.empData.isDeleteSuccess){
+                Snackbar.show({
+                    title: 'User has been Deleted',
+                    duration: Snackbar.LENGTH_SHORT,
+                });
+                props.navigation.goBack();
+                
+            }else{
+                Snackbar.show({
+                    title: 'User has not Deleted',
                     duration: Snackbar.LENGTH_SHORT,
                 });
             }
         }
-        return{
-            props
-        }
-        
+
+        return props
+    }
+
+    componentDidMount(){
+        const { navigation } = this.props;
+        const name = navigation.getParam('name', '');
+        const phoneNumber = navigation.getParam('phoneNumber', '');
+        const shift = navigation.getParam('shift', '');
+        this.uid = navigation.getParam('uid', '');
+        this.props.nameState(name)
+        this.props.phoneNumberState(phoneNumber)
+        this.props.shiftState(shift)
     }
 
 
     render(){
+        const { navigation } = this.props;
+        const actionName = navigation.getParam('action', '');
+
         return(
         <View style={CommonStyle.screenBackground}>
         {this.props.empData.isLoading? <Spinner size="large"/>:null}
@@ -91,19 +135,48 @@ class AddEmployeeComponent extends Component{
                         {this.options}
                     </TextPicker>
                 </CardSection>
+
+                {actionName==='update'?
                 <CardSection>
-                <Button 
-                    onPress={
-                        ()=>{
-                            this.props.createUser(
-                                this.props.empData.name,
-                                this.props.empData.phoneNumber,
-                                this.props.empData.shift
-                            )}
-                    }>
-                    Create
+                    <Button 
+                        onPress={
+                            ()=>{
+                                this.props.updateUser(
+                                    this.props.empData.name,
+                                    this.props.empData.phoneNumber,
+                                    this.props.empData.shift,
+                                    this.uid 
+                                )
+                            }
+                        }>
+                        Update
+                    </Button>
+                    <Button 
+                        onPress={
+                            ()=>{
+                                this.props.deleteUser(this.uid) 
+                            }
+                        }>
+                        Delete
                     </Button>
                 </CardSection>
+                :
+                <CardSection>
+                    <Button 
+                        onPress={
+                            ()=>{
+                                this.props.createUser(
+                                    this.props.empData.name,
+                                    this.props.empData.phoneNumber,
+                                    this.props.empData.shift
+                                
+                                )
+                            }
+                        }>
+                        Create
+                    </Button>
+                </CardSection>
+                }
             </Card>
             
         </View>)

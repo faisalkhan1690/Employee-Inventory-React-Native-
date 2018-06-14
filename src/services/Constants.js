@@ -7,7 +7,9 @@ export const LOGIN_FAIL="LOGIN_FAIL";
 export const USER_NAME="USER_NAME";
 export const USER_PHONE_NUMBER="USER_PHONE_NUMBER";
 export const USER_SHIFT="USER_SHIFT";
-export const USER_CREATE_USER="USER_CREATE_USER";
+export const USER_CREATE_USER="CREATE_USER";
+export const USER_UPDATE_USER="UPDATE_USER";
+export const USER_DELETE_USER="DELETE_USER";
 export const LOADER_ADD="LOADER_ADD";
 
 export const EMP_LIST="EMP_LIST";
