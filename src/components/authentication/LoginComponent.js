@@ -1,18 +1,59 @@
 import React, { Component } from 'react';
 import {
   Text,
-  View
+  View,
+  StyleSheet
 } from 'react-native';
+import CommonStyle from '../../util/CommonStyles'
 
-import {Card,CardSection,Input,Button} from '../common';
+import {Card,CardSection,Input,Button,Spinner} from '../common';
 
 export default class LoginComponent extends Component {
+  
+  constructor(){
+    super();
+    this.state={};
+  }
+
+  static navigationOptions = ({ navigation }) => ({
+    title: 'Login',
+    headerTitleStyle: {
+      textAlign: 'center',
+      alignSelf: 'center',
+      fontSize: 20,
+      color: 'white',
+      flex:1
+    },
+    headerStyle: {
+      height: 55,
+      backgroundColor: '#5D7ED3',
+    },
+    headerLeft: (<View/>),
+    headerRight: (<View/>)
+  });
+
+  
+  static getDerivedStateFromProps(props, state){
+    if(props.authenticationData.userData!==''){
+      props.navigation.navigate('Home')
+    }
+    return{
+      props
+    }
+  }
+
+  componentDidMount(){
+    console.disableYellowBox = true;
+    this.props.authenticationData.emailId='faisal@gmail.com'
+    this.props.authenticationData.password='faisal'
+    this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password)
+  }
 
   render() {
   
-    console.warn(this.props.authenticationData.userData)
     return (
-      <View>
+      <View style={CommonStyle.screenBackground}>
+        {this.props.authenticationData.isLoading? <Spinner size="large"/>:null}
         <Card>
           <CardSection>
           <Input 
@@ -30,17 +71,30 @@ export default class LoginComponent extends Component {
               secureTextEntry={true}
               />
           </CardSection>
-          <Text>{this.props.authenticationData.errorMessage}</Text>
+          <Text style={styles.errorTextStyle}>
+            {this.props.authenticationData.errorMessage}
+          </Text>
           <CardSection>
-            <Button onPress={()=>{
-              this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password);
-              }}>
+
+            <Button 
+              onPress={
+                ()=>{this.props.loginUser(this.props.authenticationData.emailId,this.props.authenticationData.password);}
+              }>
               Login 
             </Button>
           </CardSection>
-          <Text>Data</Text>
         </Card>
+       
       </View>
     );
   }
 }
+
+const styles=StyleSheet.create({
+  errorTextStyle:{
+      fontSize:20,
+      alignSelf:'center',
+      color:'blue',
+      padding:10
+  }
+});

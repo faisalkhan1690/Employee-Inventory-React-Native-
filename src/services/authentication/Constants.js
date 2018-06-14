@@ -1,4 +1,0 @@
-export const USER_EMAIL_ID="USER_EMAIL_ID";
-export const USER_PASSWORD="USER_PASSWORD";
-export const LOGIN_SUCCESS="LOGIN_SUCCESS";
-export const LOGIN_FAIL="LOGIN_FAIL";
