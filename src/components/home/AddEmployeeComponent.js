@@ -40,6 +40,10 @@ class AddEmployeeComponent extends Component{
             props.empData.shift='';
             props.empData.isSavedClicked=false;
             props.empData.isSaveSuccess='';
+            props.empData.isUpdateClicked=false;
+            props.empData.isUpdateSuccess='';
+            props.empData.isDeleteClicked=false;
+            props.empData.isDeleteSuccess='';
         }
         if(state!=null){
             return props
@@ -102,6 +106,8 @@ class AddEmployeeComponent extends Component{
         this.props.phoneNumberState(phoneNumber)
         this.props.shiftState(shift)
     }
+
+   
 
 
     render(){
